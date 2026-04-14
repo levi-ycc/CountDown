@@ -27,7 +27,7 @@ class CountdownClock(QWidget):
         self.time_label = QLabel("00:60", self)
         self.time_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.time_label.setFont(QFont("Arial", 48, QFont.Weight.Bold))
-        self.time_label.setStyleSheet("color: #333333;")
+        self.time_label.setStyleSheet("color: #e74c3c;")
         self.layout.addWidget(self.time_label)
         
         self.setLayout(self.layout)
@@ -57,14 +57,11 @@ class CountdownClock(QWidget):
             
         self.time_label.setText(display_text)
         
-        # 最後 10 秒以內 給予紅色警示 (利用毫秒閃爍)
-        if seconds_left <= 10:
-            if current_time.msec() < 500:
-                self.time_label.setStyleSheet("color: #e74c3c;") # 亮紅
-            else:
-                self.time_label.setStyleSheet("color: #c0392b;") # 暗紅
+        # 小於等於 15 秒時為綠色，大於則為紅色
+        if seconds_left <= 15:
+            self.time_label.setStyleSheet("color: #27ae60;") # 綠色
         else:
-            self.time_label.setStyleSheet("color: #333333;")
+            self.time_label.setStyleSheet("color: #e74c3c;") # 紅色
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
